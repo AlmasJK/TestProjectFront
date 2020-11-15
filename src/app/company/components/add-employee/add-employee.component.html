@@ -1,0 +1,105 @@
+<div class="condensed">
+  <div class="row">
+    <form
+      (ngSubmit)="submit()"
+      spellcheck="false"
+      autocomplete="off"
+      [formGroup]="form"
+    >
+      <div class="header-container mb-3">
+        <h3>Добавить сотрудника</h3>
+      </div>
+      <div class="row">
+        <div class="col-12 mb-2 order-md-1">
+          <mat-form-field appearance="fill">
+            <mat-label>ИИН</mat-label>
+            <input formControlName="iin" matInput />
+          </mat-form-field>
+        </div>
+
+        <div class="col-12 mb-2 order-md-1">
+          <mat-form-field appearance="fill">
+            <mat-label>Email</mat-label>
+            <input autocomplete="email" formControlName="email" matInput />
+          </mat-form-field>
+        </div>
+
+        <div class="col-12 mb-2 order-md-1">
+          <mat-form-field appearance="fill">
+            <mat-label>Фамилия</mat-label>
+            <input formControlName="secondName" matInput />
+          </mat-form-field>
+        </div>
+
+        <div class="col-12 mb-2 order-md-1">
+          <mat-form-field appearance="fill">
+            <mat-label>Имя</mat-label>
+            <input formControlName="firstName" matInput />
+          </mat-form-field>
+        </div>
+
+        <div class="col-12 mb-2 order-md-1">
+          <mat-form-field appearance="fill">
+            <mat-label>Отчество</mat-label>
+            <input formControlName="patronymic" matInput />
+          </mat-form-field>
+        </div>
+
+        <div class="col-12 mb-2 order-md-1">
+          <mat-form-field appearance="fill">
+            <mat-label>Номер телефона</mat-label>
+            <input formControlName="phoneNumber" matInput />
+          </mat-form-field>
+        </div>
+
+        <div class="col-12 mb-2 order-md-1">
+          <mat-form-field appearance="fill">
+            <mat-label>Дата рождения</mat-label>
+            <input
+              matInput
+              formControlName="birthDate"
+              [matDatepicker]="picker"
+            />
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-datepicker-toggle
+              [for]="picker"
+              matSuffix
+            ></mat-datepicker-toggle>
+          </mat-form-field>
+        </div>
+
+        <div
+          class="col-12 mb-2 order-md-1"
+          *ngIf="countries$ | async as countries"
+        >
+          <mat-form-field appearance="fill">
+            <mat-label>Страна</mat-label>
+            <mat-select formControlName="countryId">
+              <mat-option [value]="null">Не выбрано</mat-option>
+              <mat-option
+                *ngFor="let country of countries"
+                [value]="country.id"
+                (onSelectionChange)="setCountryId(country.id)"
+                >{{ country.nameRu }}</mat-option
+              >
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="col-12 mb-2 order-md-1" *ngIf="cities$ | async as cities">
+          <mat-form-field appearance="fill">
+            <mat-label>Город</mat-label>
+            <mat-select formControlName="cityId">
+              <mat-option [value]="null">Не выбрано</mat-option>
+              <mat-option *ngFor="let city of cities" [value]="city.id">{{
+                city.nameRu
+              }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <button mat-flat-button color="primary">Внести</button>
+    </form>
+  </div>
+</div>
